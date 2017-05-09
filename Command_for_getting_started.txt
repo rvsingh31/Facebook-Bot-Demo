@@ -1,0 +1,13 @@
+curl -X POST -H "Content-Type: application/json" -d '{
+  "setting_type":"call_to_actions",
+  "thread_state":"new_thread",
+  "call_to_actions":[
+    {
+      "payload":"Greeting"
+    }
+  ]
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAALH3TZC7mT4BAD1kzwrYraWhePlpKptotogcUhE32SH8uJ4JqNN6kJR0vo9TGOAWKgGUoAL9O04zdXsTrUR25FJB8VQhOpk5epgqBsAcgpWe3SZCZBOtJszZA3PX52rKHomOEWyOrFA0qqoloGcQAYOHSVWwbE2mySD7vh1CAZDZD"
+
+
+
+
