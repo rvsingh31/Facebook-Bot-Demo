@@ -1,6 +1,8 @@
 var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
+var mongoose=require('mongoose');
+var movie = require("./movie");
 
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
@@ -29,6 +31,10 @@ app.post("/webhook", function (req, res) {
         if (event.postback) {
           processPostback(event);
         }
+		else if(event.message)
+		{
+			processMessage(event);
+		}
       });
     });
 
@@ -41,8 +47,6 @@ function processPostback(event) {
   var payload = event.postback.payload;
 
   if (payload === "Greeting") {
-    // Get user's first name from the User Profile API
-    // and include it in the greeting
     request({
       url: "https://graph.facebook.com/v2.6/" + senderId,
       qs: {
@@ -65,7 +69,6 @@ function processPostback(event) {
   }
 }
 
-// sends message to user
 function sendMessage(recipientId, message) {
   request({
     url: "https://graph.facebook.com/v2.6/me/messages",
@@ -80,4 +83,59 @@ function sendMessage(recipientId, message) {
       console.log("Error sending message: " + response.error);
     }
   });
+}
+
+function processMessage(event)
+{
+	mongoose.connect(process.env.MONGODB_URI);
+		var db = mongoose.connection;
+			db.on('error', console.error.bind(console, 'connection error:'));
+			db.once('open', function() {
+				console.log("connected..");
+		});
+		
+	if(!event.message.is_echo)
+	{
+		var message=event.message;
+		var senderId=event.sender.id;
+		console.log("Received message from senderId: " + senderId);
+		console.log("Message is: " + JSON.stringify(message));
+		
+		if(message.text)
+		{
+			request({
+				url:"https://graph.facebook.com/v2.6/" + senderId,
+				qs: {
+					access_token: process.env.PAGE_ACCESS_TOKEN,
+					fields: "first_name"
+					},
+					method: "GET"
+			},function(error,response,body){
+				var msg="";
+				var name="";
+				if (error) {
+					console.log("Error getting user's name: " +  error);
+				} else {
+					var bodyObj = JSON.parse(body);
+					name = bodyObj.first_name;
+					
+					msg="Hi "+name+", You have been subscribed to our services.We'll keep you posted with the updates.Thank You";
+				}
+				var user={user_id:senderId,first_name:name};
+				var query=movie(JSON.stringify(user));
+				query.save(function(err){
+					if (err) {console.error(err);}
+					else
+					{
+							sendMessage(senderId, {text: msg});
+					}
+				});
+				
+			});
+		}
+		else if(message.attachments)
+		{
+			sendMessage(senderId,{text:"Sorry,We couldn't understand your request.Try Again!"});
+		}
+	}
 }
