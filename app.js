@@ -88,7 +88,7 @@ function sendMessage(recipientId, message) {
 function processMessage(event)
 {
 	console.log("processing message");
-	mongoose.connect(process.env.MONGODB_URI);
+	mongoose.connect("mongodb://rvsingh:singh31@ds137141.mlab.com:37141/fb_bot");
 		var db = mongoose.connection;
 			db.on('error', console.error.bind(console, 'connection error:'));
 			db.once('open', function() {
