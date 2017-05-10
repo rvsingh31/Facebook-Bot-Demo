@@ -87,6 +87,7 @@ function sendMessage(recipientId, message) {
 
 function processMessage(event)
 {
+	console.log("processing message");
 	mongoose.connect(process.env.MONGODB_URI);
 		var db = mongoose.connection;
 			db.on('error', console.error.bind(console, 'connection error:'));
