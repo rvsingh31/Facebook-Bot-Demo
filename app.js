@@ -134,7 +134,6 @@ function processMessage(event)
 }
 
 
-d a check for events that are of type message, passing them to the processMessage() function.
 
 function processM(event) {
   if (!event.message.is_echo) {
