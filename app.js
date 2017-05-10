@@ -14,17 +14,7 @@ app.get("/", function (req, res) {
   res.send("Deployed!");
 });
 
-// Facebook Webhook
-// Used for verification
 app.post("/webhook", function (req, res) {
- /* if (req.query["hub.verify_token"] === process.env.VERIFICATION_TOKEN) {
-    console.log("Verified webhook");
-    res.status(200).send(req.query["hub.challenge"]);
-  } else {
-    console.error("Verification failed. The tokens do not match.");
-    res.sendStatus(403);
-  }
-  */
   if (req.body.object == "page") {
     req.body.entry.forEach(function(entry) {
       entry.messaging.forEach(function(event) {
@@ -33,7 +23,7 @@ app.post("/webhook", function (req, res) {
         }
 		else if(event.message)
 		{
-			processMessage(event);
+			processM(event);
 		}
       });
     });
@@ -88,13 +78,13 @@ function sendMessage(recipientId, message) {
 function processMessage(event)
 {
 	console.log("processing message");
-	mongoose.connect("mongodb://rvsingh:singh31@ds137141.mlab.com:37141/fb_bot");
+	/*mongoose.connect("mongodb://rvsingh:singh31@ds137141.mlab.com:37141/fb_bot");
 		var db = mongoose.connection;
 			db.on('error', console.error.bind(console, 'connection error:'));
 			db.once('open', function() {
 				console.log("connected..");
 		});
-		
+		*/
 	if(!event.message.is_echo)
 	{
 		var message=event.message;
@@ -104,7 +94,8 @@ function processMessage(event)
 		
 		if(message.text)
 		{
-			request({
+			sendMessage(senderId, {text: "HELLO"});
+		/*	request({
 				url:"https://graph.facebook.com/v2.6/" + senderId,
 				qs: {
 					access_token: process.env.PAGE_ACCESS_TOKEN,
@@ -132,11 +123,33 @@ function processMessage(event)
 					}
 				});
 				
-			});
+			}); 
+			*/
 		}
 		else if(message.attachments)
 		{
 			sendMessage(senderId,{text:"Sorry,We couldn't understand your request.Try Again!"});
 		}
 	}
+}
+
+
+d a check for events that are of type message, passing them to the processMessage() function.
+
+function processM(event) {
+  if (!event.message.is_echo) {
+    var message = event.message;
+    var senderId = event.sender.id;
+
+    console.log("Received message from senderId: " + senderId);
+    console.log("Message is: " + JSON.stringify(message));
+
+    // You may get a text or attachment but not both
+    if (message.text) {
+      var formattedMsg = message.text.toLowerCase().trim();
+		   sendMessage(senderId, {text: "hello,"+formattedMsg});
+    } else if (message.attachments) {
+      sendMessage(senderId, {text: "Sorry, I don't understand your request."});
+    }
+  }
 }
