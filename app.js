@@ -3,6 +3,8 @@ var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose=require('mongoose');
 var movie = require("./movie");
+var es6=require("es6-promise");
+mongoose.Promise=es6.Promise;
 var article_fetch=require('./article');
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
