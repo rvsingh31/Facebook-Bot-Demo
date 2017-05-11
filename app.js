@@ -75,99 +75,54 @@ function sendMessage(recipientId, message) {
   });
 }
 
-function processMessage(event)
-{
-	console.log("processing message");
-	/*mongoose.connect("mongodb://rvsingh:singh31@ds137141.mlab.com:37141/fb_bot");
+function processM(event) {
+	mongoose.connect("mongodb://rvsingh:singh31@ds137141.mlab.com:37141/fb_bot");
 		var db = mongoose.connection;
 			db.on('error', console.error.bind(console, 'connection error:'));
 			db.once('open', function() {
 				console.log("connected..");
 		});
-		*/
-	if(!event.message.is_echo)
-	{
-		var message=event.message;
-		var senderId=event.sender.id;
+	if (!event.message.is_echo) {
+		var message = event.message;
+		var senderId = event.sender.id;
+
 		console.log("Received message from senderId: " + senderId);
 		console.log("Message is: " + JSON.stringify(message));
-		
-		if(message.text)
-		{
-			sendMessage(senderId, {text: "HELLO"});
-		/*	request({
-				url:"https://graph.facebook.com/v2.6/" + senderId,
+
+		if (message.text) {
+			var formattedMsg = message.text.toLowerCase().trim();
+	
+	
+			request({
+				url: "https://graph.facebook.com/v2.6/" + senderId,
 				qs: {
 					access_token: process.env.PAGE_ACCESS_TOKEN,
 					fields: "first_name"
-					},
-					method: "GET"
-			},function(error,response,body){
-				var msg="";
+				},
+				method: "GET"
+			}, function(error, response, body) {
+				var g="";
 				var name="";
 				if (error) {
 					console.log("Error getting user's name: " +  error);
 				} else {
 					var bodyObj = JSON.parse(body);
 					name = bodyObj.first_name;
-					
-					msg="Hi "+name+", You have been subscribed to our services.We'll keep you posted with the updates.Thank You";
+					g = "Hi " + name + ". \n";
 				}
-				var user={user_id:senderId,first_name:name};
-				var query=movie(JSON.stringify(user));
-				query.save(function(err){
-					if (err) {console.error(err);}
-					else
-					{
+					var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
+					var user={user_id:senderId,first_name:name};
+					var query=movie(JSON.stringify(user));
+					query.save(function(err){
+						if (err) {console.error(err);}
+						else
+						{
 							sendMessage(senderId, {text: msg});
-					}
-				});
-				
-			}); 
-			*/
+						}
+					});
+			});
+		} else if (message.attachments) {
+			sendMessage(senderId, {text: "Sorry, I don't understand your request."});
 		}
-		else if(message.attachments)
-		{
-			sendMessage(senderId,{text:"Sorry,We couldn't understand your request.Try Again!"});
-		}
-	}
-}
-
-
-
-function processM(event) {
-  if (!event.message.is_echo) {
-    var message = event.message;
-    var senderId = event.sender.id;
-
-    console.log("Received message from senderId: " + senderId);
-    console.log("Message is: " + JSON.stringify(message));
-
-    // You may get a text or attachment but not both
-    if (message.text) {
-      var formattedMsg = message.text.toLowerCase().trim();
-	
-	
-		request({
-		url: "https://graph.facebook.com/v2.6/" + senderId,
-		qs: {
-			access_token: process.env.PAGE_ACCESS_TOKEN,
-			fields: "first_name"
-		},
-		method: "GET"
-		}, function(error, response, body) {
-		var g="";
-		if (error) {
-			console.log("Error getting user's name: " +  error);
-		} else {
-			var bodyObj = JSON.parse(body);
-			name = bodyObj.first_name;
-			g = "Hi " + name + ". ";
-		}
-		sendMessage(senderId, {text: g});
-		});
-    } else if (message.attachments) {
-      sendMessage(senderId, {text: "Sorry, I don't understand your request."});
-    }
   }
 }
