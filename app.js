@@ -72,6 +72,10 @@ function sendMessage(recipientId, message) {
     if (error) {
       console.log("Error sending message: " + response.error);
     }
+	else
+	{
+		console.log("Message sent to the provided senderId");
+	}
   });
 }
 
@@ -91,6 +95,7 @@ function processM(event) {
 
 		if (message.text) {
 			var formattedMsg = message.text.toLowerCase().trim();
+			console.log("INCOMING MSG: "+formattedMsg);
 			if(formattedMsg=="#subscribe")
 			{
 					
@@ -116,7 +121,7 @@ function processM(event) {
 						var query=movie(user);
 						query.save(function(err){
 							if (err) {console.error(err);
-								if(err.name="ValidatorError")
+								if(err.name=="ValidatorError")
 								{
 									sendMessage(senderId, {text: "You are already subscribed."});
 								}
@@ -126,7 +131,13 @@ function processM(event) {
 								sendMessage(senderId, {text: msg});
 							}
 						});
+						mongoose.connection.close();
 				});
+			}
+			else if(formattedMsg=="#help")
+			{
+				var message ="My name is Football Notifications Bot. I can tell you various updates regarding International Teams and various Clubs news . To subscribe to our newsletter :\n Type in : #subscribe \n\n Thank You.";
+				sendMessage(senderId, {text: message});
 			}
 			else
 			{
