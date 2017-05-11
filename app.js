@@ -146,24 +146,8 @@ function processM(event) {
     // You may get a text or attachment but not both
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
-		request({
-    url: "https://graph.facebook.com/v2.6/me/messages",
-    qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-    method: "POST",
-    json: {
-      recipient: {id: recipientId},
-      message: message,
-    }
-  },function(error,response,body){
-	  var name="";
-	  if (error) {
-        console.log("Error getting user's name: " +  error);
-      } else {
-        var bodyObj = JSON.parse(body);
-        name = bodyObj.first_name;
-      }
-		 sendMessage(senderId, {text: "hello,"+name+",\n Your msg:"+formattedMsg});
-  });
+	
+  	 sendMessage(senderId, {text: "hello,\n Your msg:"+formattedMsg});
     } else if (message.attachments) {
       sendMessage(senderId, {text: "Sorry, I don't understand your request."});
     }
