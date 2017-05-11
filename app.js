@@ -139,7 +139,7 @@ function processM(event) {
 					
 				case "#help":
 					
-					var message ="My name is Football Notifications Bot. I can tell you various updates regarding International Teams and various Clubs news . To subscribe to our newsletter :\n Type in : #subscribe \n\n Thank You.";
+					var message ="My name is Football Notifications Bot. I can tell you various updates regarding International Teams and various Clubs news .\n To subscribe to our newsletter , type in : #subscribe \n ,To read today's featured article, type : #article \n Thank You.";
 						sendMessage(senderId, {text: message});
 					break;
 					
