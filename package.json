@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "engines":{
-	"node":"6.9.5",
-	"npm":"4.2.0"
+  "engines": {
+    "node": "6.9.5",
+    "npm": "4.2.0"
   },
   "scripts": {
-    "start" : "node app.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "mongoose": "^4.9.7",
+    "mongoose-unique-validator": "^1.0.5",
     "request": "^2.81.0"
   }
 }
