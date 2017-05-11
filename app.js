@@ -114,7 +114,12 @@ function processM(event) {
 					var user={user_id:senderId,first_name:name};
 					var query=movie(user);
 					query.save(function(err){
-						if (err) {console.error(err);}
+						if (err) {console.error(err);
+							if(err.name="ValidatorError")
+							{
+								sendMessage(senderId, {text: "You are already subscribed."});
+							}
+						}
 						else
 						{
 							sendMessage(senderId, {text: msg});
