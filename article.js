@@ -37,18 +37,18 @@ function fetch(date,senderId)
 				var art_link=$(this).find('read-more-link').attr('href');
 
 				message = {
-					attachment: {
-					type: "template",
-					payload: {
-						template_type: "generic",
-						elements: [{
-							title: title,
-							subtitle: content,
-							image_url: image_link,
-							buttons: [{
-								type: "web_url",
-								title: "Read More",
-								url:art_link
+					"attachment": {
+					"type": "template",
+					"payload": {
+						"template_type": "generic",
+						"elements": [{
+							"title": title,
+							"subtitle": content,
+							"image_url": image_link,
+							"buttons": [{
+								"type": "web_url",
+								"title": "Read More",
+								"url":art_link
 								}]
 							}]
 						}
@@ -56,7 +56,7 @@ function fetch(date,senderId)
 				};
 				console.log("PREPARED MESG: "+JSON.stringify(message));
 				console.log("sending message..");
-				sendMessage(senderId,JSON.stringify(message));
+				sendMessage(senderId,message);
 
 			});
 		}
