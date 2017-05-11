@@ -112,7 +112,7 @@ function processM(event) {
 				}
 					var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
 					var user={user_id:senderId,first_name:name};
-					var query=movie(JSON.stringify(user));
+					var query=movie(user);
 					query.save(function(err){
 						if (err) {console.error(err);}
 						else
