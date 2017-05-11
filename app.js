@@ -40,7 +40,7 @@ function processPostback(event) {
 
   if (payload === "Greeting") {
     request({
-      url: "https://graph.facebook.com/v2.9/" + senderId,
+      url: "https://graph.facebook.com/v2.6/" + senderId,
       qs: {
         access_token: process.env.PAGE_ACCESS_TOKEN,
         fields: "first_name"
@@ -63,7 +63,7 @@ function processPostback(event) {
 
 function sendMessage(recipientId, message) {
   request({
-    url: "https://graph.facebook.com/v2.9/me/messages",
+    url: "https://graph.facebook.com/v2.6/me/messages",
     qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
     method: "POST",
     json: {
@@ -104,7 +104,7 @@ function processM(event) {
 				case "#subscribe":
 						
 					request({
-					url: "https://graph.facebook.com/v2.9/" + senderId,
+					url: "https://graph.facebook.com/v2.6/" + senderId,
 					qs: {
 						access_token: process.env.PAGE_ACCESS_TOKEN,
 						fields: "first_name"
@@ -162,7 +162,7 @@ function processM(event) {
 			{
 					
 				request({
-					url: "https://graph.facebook.com/v2.9/" + senderId,
+					url: "https://graph.facebook.com/v2.6/" + senderId,
 					qs: {
 						access_token: process.env.PAGE_ACCESS_TOKEN,
 						fields: "first_name"
