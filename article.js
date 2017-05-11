@@ -44,12 +44,17 @@ function fetch(date,senderId)
 						elements: [{
 							title: title,
 							subtitle: content,
-							image_url: image_link === "N/A" ? "http://placehold.it/350x150" : image_link,
+							image_url: image_link,
+							default_action: {
+								type: web_url,
+								url: art_link,
+								messenger_extensions: true,
+								webview_height_ratio: tall,
+							}
 							buttons: [{
 								type: "web_url",
 								title: "Read More",
-								url:art_link,
-								"webview_height_ratio": "compact"
+								url:art_link
 								}]
 							}]
 						}
