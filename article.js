@@ -45,12 +45,6 @@ function fetch(date,senderId)
 							title: title,
 							subtitle: content,
 							image_url: image_link,
-							default_action: {
-								type: web_url,
-								url: art_link,
-								messenger_extensions: true,
-								webview_height_ratio: tall,
-							}
 							buttons: [{
 								type: "web_url",
 								title: "Read More",
