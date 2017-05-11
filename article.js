@@ -55,7 +55,7 @@ function fetch(date,senderId)
 						}
 					}
 				};
-				
+				console.log("sending message..");
 				sendMessage(senderId,message);
 
 			});

@@ -146,7 +146,8 @@ function processM(event) {
 				case "#article":
 					var date = new Date();
 					var text = getFormattedDate(date);
-					article(text,senderId);
+					console.log("sending article dated:"+text);
+					article_fetch(text,senderId);
 					break;
 					
 					
