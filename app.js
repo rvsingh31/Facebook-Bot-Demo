@@ -147,7 +147,25 @@ function processM(event) {
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
 	
-  	 sendMessage(senderId, {text: "hello,\n Your msg:"+formattedMsg});
+	
+		request({
+		url: "https://graph.facebook.com/v2.6/" + senderId,
+		qs: {
+			access_token: process.env.PAGE_ACCESS_TOKEN,
+			fields: "first_name"
+		},
+		method: "GET"
+		}, function(error, response, body) {
+		var g="";
+		if (error) {
+			console.log("Error getting user's name: " +  error);
+		} else {
+			var bodyObj = JSON.parse(body);
+			name = bodyObj.first_name;
+			g = "Hi " + name + ". ";
+		}
+		sendMessage(senderId, {text: g});
+		});
     } else if (message.attachments) {
       sendMessage(senderId, {text: "Sorry, I don't understand your request."});
     }
