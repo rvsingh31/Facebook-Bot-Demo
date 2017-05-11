@@ -31,7 +31,7 @@ function fetch(date,senderId)
 		{
 			var $=cheerio.load(html);
 			$("#post-load > article").each(function(){
-				var image_link=$(this).find(".featured-image > a ").attr('href');
+				var image_link=$(this).find(".featured-image > a > img ").attr('src');
 				var title=$(this).find('.entry-title > a').text();
 				var content=$(this).find('.entry-content > p').text();
 				var art_link=$(this).find('read-more-link').attr('href');
