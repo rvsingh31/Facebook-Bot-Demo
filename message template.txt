@@ -1,0 +1,22 @@
+ message = {
+              attachment: {
+                type: "template",
+                payload: {
+                  template_type: "generic",
+                  elements: [{
+                    title: movieObj.Title,
+                    subtitle: "Is this the movie you are looking for?",
+                    image_url: movieObj.Poster === "N/A" ? "http://placehold.it/350x150" : movieObj.Poster,
+                    buttons: [{
+                      type: "postback",
+                      title: "Yes",
+                      payload: "Correct"
+                    }, {
+                      type: "postback",
+                      title: "No",
+                      payload: "Incorrect"
+                    }]
+                  }]
+                }
+              }
+            };

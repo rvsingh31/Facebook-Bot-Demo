@@ -3,7 +3,7 @@ var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose=require('mongoose');
 var movie = require("./movie");
-
+var article_fetch=require('./article');
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -53,7 +53,7 @@ function processPostback(event) {
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". ";
       }
-      var message = greeting + "My name is Football Notifications Bot. I can tell you various updates regarding International Teams and various Clubs news . To subscribe to our newsletter :\n Type in : #subscribe \n\n Thank You.";
+      var message = greeting + "My name is Football Notifications Bot. I can tell you various updates regarding International Teams and various Clubs news .\n To subscribe to our newsletter , type in : #subscribe \n ,To read today's featured article, type : #article \n Thank You.";
       sendMessage(senderId, {text: message});
     });
   }
@@ -96,6 +96,65 @@ function processM(event) {
 		if (message.text) {
 			var formattedMsg = message.text.toLowerCase().trim();
 			console.log("INCOMING MSG: "+formattedMsg);
+		
+			switch(formattedMsg)
+			{
+				case "#subscribe":
+						
+					request({
+					url: "https://graph.facebook.com/v2.9/" + senderId,
+					qs: {
+						access_token: process.env.PAGE_ACCESS_TOKEN,
+						fields: "first_name"
+					},
+					method: "GET"
+				}, function(error, response, body) {
+					var g="";
+					var name="";
+					if (error) {
+						console.log("Error getting user's name: " +  error);
+					} else {
+						var bodyObj = JSON.parse(body);
+						name = bodyObj.first_name;
+						g = "Hi " + name + ". \n";
+					}
+						var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
+						var user={user_id:senderId,first_name:name};
+						var query=movie(user);
+						query.save(function(err){
+							if (err) {console.error(err);
+								if(err.name=="ValidatorError")
+								{
+									sendMessage(senderId, {text: "You are already subscribed."});
+								}
+							}
+							else
+							{
+								sendMessage(senderId, {text: msg});
+							}
+						});
+						mongoose.connection.close();
+				});
+					break;
+					
+				case "#help":
+					
+					var message ="My name is Football Notifications Bot. I can tell you various updates regarding International Teams and various Clubs news . To subscribe to our newsletter :\n Type in : #subscribe \n\n Thank You.";
+						sendMessage(senderId, {text: message});
+					break;
+					
+				case "#article":
+					var date = new Date();
+					var text = getFormattedDate(date);
+					article(text,senderId);
+					break;
+					
+					
+				default: sendMessage(senderId, {text: "Sorry, We couldn't complete your request. Try Again."});
+				break;
+			}
+		
+		/*		
 			if(formattedMsg=="#subscribe")
 			{
 					
@@ -143,9 +202,24 @@ function processM(event) {
 			{
 				sendMessage(senderId, {text: "Sorry, We couldn't complete your request. Try Again."});
 			}
+			*/
 
 		} else if (message.attachments) {
 			sendMessage(senderId, {text: "Sorry, I don't understand your request."});
 		}
   }
 }
+
+
+function getFormattedDate(today) 
+{
+    var dd   = today.getDate();
+    var mm   = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+  
+    if(dd<10)  { dd='0'+dd } 
+    if(mm<10)  { mm='0'+mm } 
+  
+    return yyyy+'/'+mm+'/'+dd;
+}
+
