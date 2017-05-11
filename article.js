@@ -55,6 +55,7 @@ function fetch(date,senderId)
 						}
 					}
 				};
+				console.log("PREPARED MESG: "+JSON.stringify(message));
 				console.log("sending message..");
 				sendMessage(senderId,message);
 
