@@ -2,6 +2,7 @@ var request=require('request');
 var cheerio=require('cheerio');
 
 function sendMessage(recipientId, message) {
+	console.log("sending to:"+recipientId);
   request({
     url: "https://graph.facebook.com/v2.6/me/messages",
     qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
