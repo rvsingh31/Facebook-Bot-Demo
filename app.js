@@ -158,10 +158,11 @@ function processM(event) {
 							query.save(function(err){
 								if (err) {
 									console.error(err);
-									if(err.name=="ValidatorError")
+								/*	if(err.name=="ValidatorError")
 									{
 										sendMessage(senderId, {text: "You are already subscribed."});
 									}
+								*/
 								}
 								else
 								{
