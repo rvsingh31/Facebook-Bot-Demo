@@ -1,6 +1,7 @@
 var request=require('request');
 var cheerio=require('cheerio');
 
+/*
 function sendMessage(recipientId, message) {
 	console.log("sending to:"+recipientId);
   request({
@@ -22,6 +23,33 @@ function sendMessage(recipientId, message) {
   });
 }
 
+*/
+
+const sendMessage = (userId, messageData)  => {
+
+      return new Promise((resolve, reject) => {
+        request
+        (
+            {
+                url     : "https://graph.facebook.com/v2.6/me/messages",
+                qs      : { access_token : process.env.PAGE_ACCESS_TOKEN },
+                method  : "POST",
+                json    : 
+                        {
+                            recipient: { id : userId },
+                            message: messageData,
+                        }
+            }, (error, response, body) => 
+            {
+                if (error) { console.log("Error sending message: " + response.error); return reject(response.error); }
+                else if (response.body.error) { console.log('Response body Error: ' + response.body.error); return reject(response.body.error); }
+
+                console.log("Message sent successfully to " + userId); 
+                return resolve(response);
+            }
+        );    
+    });
+};
 
 function fetch(date,senderId)
 {
@@ -31,6 +59,7 @@ function fetch(date,senderId)
 		if(!error)
 		{
 			var $=cheerio.load(html);
+			
 			$("#post-load > article").each(function(){
 				var image_link=$(this).find(".featured-image > a > img ").attr('src');
 				var title=$(this).find('.entry-title > a').text();
@@ -60,6 +89,7 @@ function fetch(date,senderId)
 				sendMessage(senderId,JSON.stringify(message));
 
 			});
+			
 		}
 		else
 		{
