@@ -99,7 +99,7 @@ const sendMessage = (userId, messageData)  => {
 								name = bodyObj.first_name;
 								g = "Hi " + name + ". ";
 							}
-							var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
+							var message=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
 							var new_user={
 								user_id:senderId,
 								first_name:name
