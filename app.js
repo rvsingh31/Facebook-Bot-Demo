@@ -60,7 +60,7 @@ function processPostback(event) {
     });
   }
 }
-
+/*
 function sendMessage(recipientId, message) {
   request({
     url: "https://graph.facebook.com/v2.6/me/messages",
@@ -80,6 +80,35 @@ function sendMessage(recipientId, message) {
 	}
   });
 }
+*/
+
+const sendMessage = (userId, messageData)  => {
+
+      return new Promise((resolve, reject) => {
+        request
+        (
+            {
+                url     : "https://graph.facebook.com/v2.6/me/messages",
+                qs      : { access_token : process.env.PAGE_ACCESS_TOKEN },
+                method  : "POST",
+                json    : 
+                        {
+                            recipient: { id : userId },
+                            message: messageData,
+                        }
+            }, (error, response, body) => 
+            {
+				console.log("in");
+                if (error) { console.log("Error sending message: " + response.error); return reject(response.error); }
+                else if (response.body.error) { console.log('Response body Error: ' + JSON.stringify(response.body.error)); return reject(response.body.error); }
+
+                console.log("Message sent successfully to " + userId); 
+                return resolve(response);
+            }
+        );    
+    });
+};
+
 
 function processM(event) {
 	mongoose.connect("mongodb://rvsingh:singh31@ds137141.mlab.com:37141/fb_bot");
