@@ -164,6 +164,7 @@ function processM(event) {
 								}
 								else
 								{
+									console.log("in else..");
 									sendMessage(senderId, {text: msg});
 								}
 							});
