@@ -131,7 +131,6 @@ function processM(event) {
 		}
   }
   
-  	mongoose.connection.close();
 }
 
 

@@ -35,7 +35,7 @@ const sendMessage = (userId, messageData)  => {
 
  function subscribe(senderId)
  {
-					mongoose.connect("mongodb://rvsingh:singh31@ds137141.mlab.com:37141/fb_bot");
+					mongoose.connect("mongodb://rvsingh:singh31@ds139791.mlab.com:39791/fb_bot");
 						var db = mongoose.connection;
 						db.on('error', console.error.bind(console, 'connection error:'));
 						db.once('open', function() {
@@ -84,7 +84,6 @@ const sendMessage = (userId, messageData)  => {
 						
 						mongoose.connection.close();
 		
-	
  }
  
  module.exports=subscribe;
