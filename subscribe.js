@@ -42,7 +42,7 @@ const sendMessage = (userId, messageData)  => {
 						console.log("connected..");
 					});
 					
-					request({
+				/*	request({
 						url: "https://graph.facebook.com/v2.6/" + senderId,
 						qs: {
 							access_token: process.env.PAGE_ACCESS_TOKEN,
@@ -81,6 +81,28 @@ const sendMessage = (userId, messageData)  => {
 							
 							
 						});
+						*/
+						request({
+							url: "https://graph.facebook.com/v2.6/" + senderId,
+							qs: {
+								access_token: process.env.PAGE_ACCESS_TOKEN,
+								fields: "first_name"
+								},
+							method: "GET"
+						}, function(error, response, body) {
+							var greeting = "";
+							if (error) {
+								console.log("Error getting user's name: " +  error);
+							} else {
+								var bodyObj = JSON.parse(body);
+								name = bodyObj.first_name;
+								greeting = "Hi " + name + ". ";
+							}
+							var message = greeting + "My name is Football Notifications Bot. I can tell you various updates regarding International Teams and various Clubs news .\n To subscribe to our newsletter , type in : #subscribe \n ,To read today's featured article, type : #article \n Thank You.";
+							sendMessage(senderId, {text: message});
+						});
+						
+						
 						
 						mongoose.connection.close();
 		
