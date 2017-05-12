@@ -41,47 +41,7 @@ const sendMessage = (userId, messageData)  => {
 						db.once('open', function() {
 						console.log("connected..");
 					});
-					
-				/*	request({
-						url: "https://graph.facebook.com/v2.6/" + senderId,
-						qs: {
-							access_token: process.env.PAGE_ACCESS_TOKEN,
-							fields: "first_name"
-						},
-						method: "GET"
-						}, function(error, response, body) {
-							var g="";
-							var name="";
-							if (error) {
-								console.log("Error getting user's name: " +  error);
-							} else {
-								var bodyObj = JSON.parse(body);
-								name = bodyObj.first_name;
-								g = "Hi " + name + ". \n";
-							}
-							var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
-							
-							var user={
-								user_id:senderId,
-								first_name:name
-							};
-							
-							var q=user_sch(user);
-							q.save(function(err){
-								if (err) {
-									console.error(err);
-								}
-								else
-								{
-									console.log("stored");
-								}
-						
-							//		sendMessage(senderId, {text: msg});
-							});
-							
-							
-						});
-						*/
+
 						request({
 							url: "https://graph.facebook.com/v2.6/" + senderId,
 							qs: {
@@ -108,10 +68,12 @@ const sendMessage = (userId, messageData)  => {
 							var new_query=user_sch(new_user);
 							new_query.save(function(err){
 								if(err){console.log(log);}
-								console.log("stored..");
+								else{
+									console.log("new subscription arrived.");
+											sendMessage(senderId, {text: message});
+								}
 							});
-							
-							sendMessage(senderId, {text: message});
+				
 						});
 						
 						
