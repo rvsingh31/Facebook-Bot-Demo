@@ -66,7 +66,7 @@ function fetch(date,senderId)
 				var title=$(this).find('.entry-title > a').text();
 				var content=$(this).find('.entry-content > p').text();
 				var art_link=$(this).find('read-more-link').attr('href');
-
+				
 				message = {
 					attachment: {
 					type: "template",
@@ -78,8 +78,8 @@ function fetch(date,senderId)
 							image_url: image_link,
 							buttons: [{
 								type: "web_url",
+								url:art_link,
 								title: "Read More",
-								url:art_link
 								}]
 							}]
 						}
