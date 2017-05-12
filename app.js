@@ -206,7 +206,7 @@ function processM(event) {
 				sendMessage(senderId, {text: "Sorry, We couldn't complete your request. Try Again."});
 			}
 			*/
-
+			mongoose.connection.close();
 		} else if (message.attachments) {
 			sendMessage(senderId, {text: "Sorry, I don't understand your request."});
 		}

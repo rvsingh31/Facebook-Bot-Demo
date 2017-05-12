@@ -41,8 +41,9 @@ const sendMessage = (userId, messageData)  => {
                         }
             }, (error, response, body) => 
             {
+				console.log("in");
                 if (error) { console.log("Error sending message: " + response.error); return reject(response.error); }
-                else if (response.body.error) { console.log('Response body Error: ' + response.body.error); return reject(response.body.error); }
+                else if (response.body.error) { console.log('Response body Error: ' + JSON.stringify(response.body.error)); return reject(response.body.error); }
 
                 console.log("Message sent successfully to " + userId); 
                 return resolve(response);
