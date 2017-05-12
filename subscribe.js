@@ -68,7 +68,7 @@ const sendMessage = (userId, messageData)  => {
 									console.error(err);
 								}
 								console.log("in query");
-									sendMessage(senderId, {text: msg});
+							//		sendMessage(senderId, {text: msg});
 							});
 						});
 						
