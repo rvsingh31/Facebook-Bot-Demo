@@ -67,7 +67,7 @@ const sendMessage = (userId, messageData)  => {
 							
 							var new_query=user_sch(new_user);
 							new_query.save(function(err){
-								if(err){console.log(log);}
+								if(err){console.log(err);}
 								else{
 									console.log("new subscription arrived.");
 											sendMessage(senderId, {text: message});
