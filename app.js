@@ -131,41 +131,42 @@ function processM(event) {
 			switch(formattedMsg)
 			{
 				case "#subscribe":
-						
+						console.log("in subscribe case");
 					request({
-					url: "https://graph.facebook.com/v2.6/" + senderId,
-					qs: {
-						access_token: process.env.PAGE_ACCESS_TOKEN,
-						fields: "first_name"
-					},
-					method: "GET"
-				}, function(error, response, body) {
-					var g="";
-					var name="";
-					if (error) {
-						console.log("Error getting user's name: " +  error);
-					} else {
-						var bodyObj = JSON.parse(body);
-						name = bodyObj.first_name;
-						g = "Hi " + name + ". \n";
-					}
-						var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
-						console.log("PREPARED MSG:"+msg);
-						var user={user_id:senderId,first_name:name};
-						var query=movie(user);
-						query.save(function(err){
-							if (err) {console.error(err);
-								if(err.name=="ValidatorError")
-								{
-									sendMessage(senderId, {text: "You are already subscribed."});
+						url: "https://graph.facebook.com/v2.6/" + senderId,
+						qs: {
+							access_token: process.env.PAGE_ACCESS_TOKEN,
+							fields: "first_name"
+						},
+						method: "GET"
+						}, function(error, response, body) {
+							var g="";
+							var name="";
+							if (error) {
+								console.log("Error getting user's name: " +  error);
+							} else {
+								var bodyObj = JSON.parse(body);
+								name = bodyObj.first_name;
+								g = "Hi " + name + ". \n";
+							}
+							var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
+							console.log("PREPARED MSG:"+msg);
+							var user={user_id:senderId,first_name:name};
+							var query=movie(user);
+							query.save(function(err){
+								if (err) {
+									console.error(err);
+									if(err.name=="ValidatorError")
+									{
+										sendMessage(senderId, {text: "You are already subscribed."});
+									}
 								}
-							}
-							else
-							{
-								sendMessage(senderId, {text: msg});
-							}
+								else
+								{
+									sendMessage(senderId, {text: msg});
+								}
+							});
 						});
-				});
 					break;
 					
 				case "#help":
