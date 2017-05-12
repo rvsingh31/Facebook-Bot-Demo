@@ -65,7 +65,7 @@ function fetch(date,senderId)
 				var image_link=$(this).find(".featured-image > a > img ").attr('src');
 				var title=$(this).find('.entry-title > a').text();
 				var content=$(this).find('.entry-content > p').text();
-				var art_link=$(this).find('read-more-link').attr('href');
+				var art_link=$(this).find('.entry-title > a').attr('href');
 				
 				message = {
 					attachment: {
