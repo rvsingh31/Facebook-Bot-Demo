@@ -102,7 +102,7 @@ const sendMessage = (userId, messageData)  => {
 							var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
 							var new_user={
 								user_id:senderId,
-								first_name:name;
+								first_name:name
 							};
 							
 							var new_query=user_sch(new_user);
