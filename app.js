@@ -154,7 +154,7 @@ function processM(event) {
 							console.log("PREPARED MSG:"+msg);
 							var user={user_id:senderId,first_name:name};
 							console.log("INCOMING USER:"+JSON.stringify(user));
-							var query=movie(user);
+							var query=movie(JSON.parse(user));
 							query.save(function(err){
 								if (err) {
 									console.error(err);
