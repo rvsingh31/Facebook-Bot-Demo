@@ -1,6 +1,6 @@
 var request=require('request');
 var mongoose=require('mongoose');
-var movie = require("./movie");
+var user_sch = require("./user");
 var es6=require("es6-promise");
 mongoose.Promise=es6.Promise;
  
@@ -60,16 +60,26 @@ const sendMessage = (userId, messageData)  => {
 								g = "Hi " + name + ". \n";
 							}
 							var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
-							var user={user_id:senderId,first_name:name};
-							var query=movie(user);
-							console.log(query);
-							query.save(function(err){
+							
+							var user={
+								user_id:senderId,
+								first_name:name
+							};
+							
+							var q=user_sch(user);
+							q.save(function(err){
 								if (err) {
 									console.error(err);
 								}
-								console.log("in query");
+								else
+								{
+									console.log("stored");
+								}
+						
 							//		sendMessage(senderId, {text: msg});
 							});
+							
+							
 						});
 						
 						mongoose.connection.close();
