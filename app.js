@@ -157,55 +157,6 @@ function processM(event) {
 				break;
 			}
 		
-		/*		
-			if(formattedMsg=="#subscribe")
-			{
-					
-				request({
-					url: "https://graph.facebook.com/v2.6/" + senderId,
-					qs: {
-						access_token: process.env.PAGE_ACCESS_TOKEN,
-						fields: "first_name"
-					},
-					method: "GET"
-				}, function(error, response, body) {
-					var g="";
-					var name="";
-					if (error) {
-						console.log("Error getting user's name: " +  error);
-					} else {
-						var bodyObj = JSON.parse(body);
-						name = bodyObj.first_name;
-						g = "Hi " + name + ". \n";
-					}
-						var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
-						var user={user_id:senderId,first_name:name};
-						var query=movie(user);
-						query.save(function(err){
-							if (err) {console.error(err);
-								if(err.name=="ValidatorError")
-								{
-									sendMessage(senderId, {text: "You are already subscribed."});
-								}
-							}
-							else
-							{
-								sendMessage(senderId, {text: msg});
-							}
-						});
-						mongoose.connection.close();
-				});
-			}
-			else if(formattedMsg=="#help")
-			{
-				var message ="My name is Football Notifications Bot. I can tell you various updates regarding International Teams and various Clubs news . To subscribe to our newsletter :\n Type in : #subscribe \n\n Thank You.";
-				sendMessage(senderId, {text: message});
-			}
-			else
-			{
-				sendMessage(senderId, {text: "Sorry, We couldn't complete your request. Try Again."});
-			}
-			*/
 			mongoose.connection.close();
 		} else if (message.attachments) {
 			sendMessage(senderId, {text: "Sorry, I don't understand your request."});

@@ -1,30 +1,6 @@
 var request=require('request');
 var cheerio=require('cheerio');
 
-/*
-function sendMessage(recipientId, message) {
-	console.log("sending to:"+recipientId);
-  request({
-    url: "https://graph.facebook.com/v2.6/me/messages",
-    qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-    method: "POST",
-    json: {
-      recipient: {id: recipientId},
-      message: message,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log("Error sending message: " + response.error);
-    }
-	else
-	{
-		console.log("Message sent to the provided senderId");
-	}
-  });
-}
-
-*/
-
 const sendMessage = (userId, messageData)  => {
 
       return new Promise((resolve, reject) => {
