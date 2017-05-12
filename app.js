@@ -167,6 +167,7 @@ function processM(event) {
 									sendMessage(senderId, {text: msg});
 								}
 							});
+							console.log("query fired..");
 						});
 						
 						mongoose.connection.close();
