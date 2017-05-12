@@ -69,21 +69,13 @@ const sendMessage = (userId, messageData)  => {
 							new_query.save(function(err){
 								if(err){
 									console.log(err);
-								/*	if(err.name=="ValidationError")
-									{
-										sendMessage(senderId, {text: "You are already subscribed."});
-									}
-								*/
 								}
 								else{
 									console.log("new subscription arrived.");
-								//			sendMessage(senderId, {text: message});
 								}
 							});
-				
+								//			sendMessage(senderId, {text: message});
 						});
-						
-						
 						
 						mongoose.connection.close();
 		
