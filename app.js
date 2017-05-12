@@ -111,12 +111,7 @@ const sendMessage = (userId, messageData)  => {
 
 
 function processM(event) {
-	mongoose.connect("mongodb://rvsingh:singh31@ds137141.mlab.com:37141/fb_bot");
-		var db = mongoose.connection;
-			db.on('error', console.error.bind(console, 'connection error:'));
-			db.once('open', function() {
-				console.log("connected..");
-		});
+	
 	if (!event.message.is_echo) {
 		var message = event.message;
 		var senderId = event.sender.id;
@@ -131,6 +126,12 @@ function processM(event) {
 			switch(formattedMsg)
 			{
 				case "#subscribe":
+					mongoose.connect("mongodb://rvsingh:singh31@ds137141.mlab.com:37141/fb_bot");
+						var db = mongoose.connection;
+						db.on('error', console.error.bind(console, 'connection error:'));
+						db.once('open', function() {
+						console.log("connected..");
+					});
 						console.log("in subscribe case");
 					request({
 						url: "https://graph.facebook.com/v2.6/" + senderId,
@@ -167,6 +168,8 @@ function processM(event) {
 								}
 							});
 						});
+						
+						mongoose.connection.close();
 					break;
 					
 				case "#help":
@@ -187,7 +190,6 @@ function processM(event) {
 				break;
 			}
 		
-			mongoose.connection.close();
 		} else if (message.attachments) {
 			sendMessage(senderId, {text: "Sorry, I don't understand your request."});
 		}
