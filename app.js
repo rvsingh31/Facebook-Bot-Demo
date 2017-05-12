@@ -132,7 +132,7 @@ function processM(event) {
 						db.once('open', function() {
 						console.log("connected..");
 					});
-						console.log("in subscribe case");
+					
 					request({
 						url: "https://graph.facebook.com/v2.6/" + senderId,
 						qs: {
@@ -151,10 +151,10 @@ function processM(event) {
 								g = "Hi " + name + ". \n";
 							}
 							var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
-							console.log("PREPARED MSG:"+msg);
 							var user={user_id:senderId,first_name:name};
-							console.log("INCOMING USER:"+JSON.stringify(user));
-							var query=movie(JSON.stringify(user));
+							var query=movie(user);
+							console.log("query:");
+							console.log(query);
 							query.save(function(err){
 								if (err) {
 									console.error(err);
