@@ -121,6 +121,7 @@ function processM(event) {
 						g = "Hi " + name + ". \n";
 					}
 						var msg=g+"You have been successfully subscribed and we'll provide you latest updates time to time.\n Thank You for choosing Football Notifications.";
+						console.log("PREPARED MSG:"+msg);
 						var user={user_id:senderId,first_name:name};
 						var query=movie(user);
 						query.save(function(err){
@@ -136,7 +137,6 @@ function processM(event) {
 							}
 						});
 				});
-					mongoose.connection.close();
 					break;
 					
 				case "#help":
@@ -162,6 +162,8 @@ function processM(event) {
 			sendMessage(senderId, {text: "Sorry, I don't understand your request."});
 		}
   }
+  
+  	mongoose.connection.close();
 }
 
 
