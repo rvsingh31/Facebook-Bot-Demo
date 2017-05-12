@@ -135,8 +135,8 @@ function processM(event) {
 								sendMessage(senderId, {text: msg});
 							}
 						});
-						mongoose.connection.close();
 				});
+					mongoose.connection.close();
 					break;
 					
 				case "#help":
@@ -176,4 +176,3 @@ function getFormattedDate(today)
   
     return yyyy+'/'+mm+'/'+dd;
 }
-
