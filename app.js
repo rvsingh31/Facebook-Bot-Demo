@@ -144,5 +144,5 @@ function getFormattedDate(today)
     if(mm<10)  { mm='0'+mm } 
   
    // return yyyy+'/'+mm+'/'+dd;
-   // return yyyy;
+    return yyyy;
 }
