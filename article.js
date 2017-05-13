@@ -36,16 +36,11 @@ function fetch(date,senderId)
 		if(!error)
 		{
 			var $=cheerio.load(html);
-			var x=$("#post-load article:nth-child(1)");
-			//	var image_link=$(this).find(".featured-image > a > img ").attr('src');
-			//	var title=$(this).find('.entry-title > a').text();
-			//	var content=$(this).find('.entry-content > p').text();
-			//	var art_link=$(this).find('.entry-title > a').attr('href');
+				var image_link=$("#post-load article").first().find(".featured-image > a > img ").attr('src');
+				var title=$("#post-load article").first().find('.entry-title > a').text();
+				var content=$("#post-load article").first().find('.entry-content > p').text();
+				var art_link=$("#post-load article").first().find('.entry-title > a').attr('href');
 				
-					var image_link=$("#post-load article:nth-child(1) > .featured-image > a > img ").attr('src');
-					var title=$("#post-load article:nth-child(1) > .entry-title > a").text();
-					var content=$("#post-load article:nth-child(1) > entry-content > p").text();
-					var art_link=$("#post-load article:nth-child(1) > entry-title > a").attr('href');
 				
 				message = {
 					attachment: {
