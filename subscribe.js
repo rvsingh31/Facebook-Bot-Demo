@@ -71,17 +71,17 @@ const sendMessage = (userId, messageData)  => {
 									console.log(err);
 									if(err.name=="ValidationError")
 									{
+										sendMessage(senderId, {text: "You are already subscribed."});
 										console.log("Duplication..");
 									}
 								}
 								else
 								{
+									sendMessage(senderId, {text: message});
 									console.log("stored..");		
 								}
 								
 							});
-							
-						//	sendMessage(senderId, {text: message});
 						});
 						
 						
