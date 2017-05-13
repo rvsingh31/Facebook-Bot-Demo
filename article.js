@@ -42,10 +42,10 @@ function fetch(date,senderId)
 			//	var content=$(this).find('.entry-content > p').text();
 			//	var art_link=$(this).find('.entry-title > a').attr('href');
 				
-					var image_link=x.find(".featured-image > a > img ").attr('src');
-					var title=x.find('.entry-title > a').text();
-					var content=x.find('.entry-content > p').text();
-					var art_link=x.find('.entry-title > a').attr('href');
+					var image_link=$("#post-load article:nth-child(1)").find(".featured-image > a > img ").attr('src');
+					var title=$("#post-load article:nth-child(1)").find('.entry-title > a').text();
+					var content=$("#post-load article:nth-child(1)").find('.entry-content > p').text();
+					var art_link=$("#post-load article:nth-child(1)").find('.entry-title > a').attr('href');
 				
 				message = {
 					attachment: {
