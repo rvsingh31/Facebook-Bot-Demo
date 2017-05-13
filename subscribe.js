@@ -67,8 +67,17 @@ const sendMessage = (userId, messageData)  => {
 							
 							var new_query=user_sch(new_user);
 							new_query.save(function(err){
-								if(err){console.log(err);}
-								console.log("stored..");
+								if(err){
+									console.log(err);
+									if(err.name=="ValidationError")
+									{
+										console.log("Duplication..");
+									}
+								}
+								else
+								{
+									console.log("stored..");		
+								}
 								
 							});
 							
