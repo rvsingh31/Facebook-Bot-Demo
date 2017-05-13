@@ -72,12 +72,12 @@ const sendMessage = (userId, messageData)  => {
 								
 							});
 							
-							sendMessage(senderId, {text: message});
+						//	sendMessage(senderId, {text: message});
 						});
 						
 						
 						
-						mongoose.connection.close();
+					//	mongoose.connection.close();
 		
  }
  
