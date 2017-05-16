@@ -127,7 +127,7 @@ function processM(event) {
 			}
 		
 		} else if (message.attachments) {
-			sendMessage(senderId, {text: "Sorry, I don't understand your request. \n . For help , type : #help ."});
+			sendMessage(senderId, {text: "Sorry, I don't understand your request. \n . For help , type : #help."});
 		}
   }
   
