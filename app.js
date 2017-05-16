@@ -55,7 +55,7 @@ function processPostback(event) {
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". ";
       }
-      var message = greeting + "My name is Football Notifications Bot. I can tell you various updates regarding International Teams and various Clubs news .\n To subscribe to our newsletter , type in : #subscribe \n ,To read today's featured article, type : #article \n Thank You.";
+      var message = greeting + "\n My name is Football Notifications Bot.Following are my commands: \n \n  #article : To receive today's featured Article.";
       sendMessage(senderId, {text: message});
     });
   }
@@ -110,7 +110,7 @@ function processM(event) {
 					
 				case "#help":
 					
-					var message ="My name is Football Notifications Bot. I can tell you various updates regarding International Teams and various Clubs news .\n To subscribe to our newsletter , type in : #subscribe \n ,To read today's featured article, type : #article \n Thank You.";
+					var message ="My name is Football Notifications Bot.Following are my commands: \n \n  #article : To receive today's featured Article.";
 						sendMessage(senderId, {text: message});
 					break;
 					
