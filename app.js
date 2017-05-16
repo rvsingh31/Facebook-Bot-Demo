@@ -55,7 +55,7 @@ function processPostback(event) {
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". ";
       }
-      var message = greeting + "\n My name is Football Notifications Bot.Following are my commands: \n \n  #article : To receive today's featured Article.";
+      var message = greeting + "\n My name is Football Notifications Bot.Following are my commands: \n \n  #article : To receive today's featured Article. \n #help: For help.";
       sendMessage(senderId, {text: message});
     });
   }
@@ -127,7 +127,7 @@ function processM(event) {
 			}
 		
 		} else if (message.attachments) {
-			sendMessage(senderId, {text: "Sorry, I don't understand your request."});
+			sendMessage(senderId, {text: "Sorry, I don't understand your request. \n . For help , type : #help ."});
 		}
   }
   
